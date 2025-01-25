@@ -1,0 +1,68 @@
+{% load static %}
+<!-- header part here -->
+<header class="header_part">
+    <div class="sub_header bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 col-lg-7 col-md-7">
+                    <div class="header_contact_info">
+                        <a href="tel:+4641468425"><i class="icon_phone"></i>+250 783 ...</a>
+                        <a href="mailto:admin@example.com"><i class="icon_mail_alt"></i>erick@gmail.com</a>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-5 col-md-5">
+                    <div class="header_login_info">
+                        <a href="teacher.html">Join Us Instead</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main_nav">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="header_iner d-flex justify-content-between align-items-center">
+                        <div class="sidebar_icon troggle_icon d-lg-none">
+                            <i class="icon_menu"></i>
+                        </div>
+                        <div class="logo">
+                            <a href="{% url 'home' %}"><img alt="#" src="{% static 'images/logo/ssc_logo_blue.png' %}" class="w-75"></a>
+                        </div>
+
+                        <nav class="navbar_bar">
+                            <ul>
+                                <li class="mega_menu_dropdown">
+                                    <a class="nav-link active" href="{% url 'home' %}">Home</a>
+                                </li>
+                                <li class="mega_menu_dropdown">
+                                    <a class="mega_menu_dropdown-toggle nav-link" href="#">Services</a>
+                                    <ul>
+                                        <li><a href="course-list.html">Adopt</a></li>
+                                        <li><a href="course-grid.html">Donate</a></li>
+                                        <li><a href="course-slider.html">Find a kid</a></li>
+
+                                    </ul>
+                                </li>
+                                <li class="mega_menu_dropdown">
+                                    <a class="mega_menu_dropdown-toggle nav-link" href="#">Pages</a>
+                                    <ul>
+                                        <li><a class="" href="{% url 'events' %}">Events</a></li>
+                                        <li><a href="course-grid.html">Abouts</a></li>
+                                        <li><a href="{% url 'feedback' %}">Feedback</a></li>
+
+                                    </ul>
+                                </li>
+                                <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+                            </ul>
+                        </nav>
+                        <div class="navbar_btn">
+                            <a class="btn_1" href="{% url 'user_login' %}">Sign In</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- header part end -->

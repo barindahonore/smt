@@ -1,0 +1,75 @@
+{% extends "./base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+    <div class="main_content_iner overly_inner ">
+        <div class="container-fluid p-0 ">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="page_title_box d-flex align-items-center justify-content-between">
+                        <div class="page_title_left">
+                            <h3 class="f_s_40 text_white">{{event.title}}</h3>
+                            <ol class="breadcrumb page_bradcam mb-0">
+                                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboad</a></li>
+                                <li class="breadcrumb-item"><a href="{% url 'citizen-events' %}">Ibiteganyijwe</a></li>
+                                <li class="breadcrumb-item active">{{event.title}}</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                {% if event %}
+                        <div class="col-md-8 m-auto">
+                            <div class="white_card position-relative mb_20 pt-3 pb-2">
+                                <div class="card-body">
+
+                                        <div class="mb_40">
+                                            <h1 class="d-block uppercase fw-bold text-center f_s_20">
+                                                
+                                                <i class="ti-light-bulb f_s_20"></i> {{ event.title }}
+                                            </h1>
+                                        </div>
+                                        <div class="row my-2">
+                                            <div class="col">
+                                                <span
+                                                    class="badge_btn_3  mb-1">Start Date: {{ event.start_date|date:'M d, y' }}
+                                                </span>
+                                                <span class="text-muted font-14">
+                                                    {% if event.remaining_days == 0%} <span class="text-danger fw-bold">Today</span> {% else %}{{event.remaining_days}} days remaining{% endif %}
+                                                </span>
+                                                <!-- <a href="#"
+                                                    class="f_w_400 color_text_3 f_s_14 d-block uppercase">Period: {{ member.period}}</a> -->
+                                            </div>
+                                            <div class="col-auto">
+                                                <span
+                                                    class="badge_btn_1  mb-1">End Date: {{ event.end_date|date:'M d, y' }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row my-3">
+                                            <div class="col">
+                                                <h2 class="fw-bold mb-2 d-flex gap-2 align-items-center"><i class="ti-align-left"></i>Description</h2>
+                                                <p>
+                                                    {{event.description}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        
+                                       
+                                </div>
+
+                            </div>
+                        </div>
+                    {% else %}
+                    <p class="text-white">No data present....... </p>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

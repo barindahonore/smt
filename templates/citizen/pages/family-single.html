@@ -1,0 +1,91 @@
+{% extends "./base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+    <div class="main_content_iner overly_inner ">
+        <div class="container-fluid p-0 ">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="page_title_box d-flex align-items-center justify-content-between">
+                        <div class="page_title_left">
+                            <h3 class="f_s_40 text_white">Umuryango Wawe</h3>
+                            <ol class="breadcrumb page_bradcam mb-0">
+                                <li class="breadcrumb-item"><a href="">Dashboad</a></li>
+                                <li class="breadcrumb-item active">Umuryango</li>
+                                <li class="breadcrumb-item active">{{member.first_name}} {{member.last_name}}</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                {% if member %}
+                        <div class="col-md-8 m-auto">
+                            <div class="white_card position-relative mb_20 pt-3 pb-2">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md">
+                                            <div class="picture w-40 m-auto">
+                                                <img src="{{member.profile_picture.url}}" alt="" srcset="" class="img-fluid d-block mx-auto my-2 product_img object-top">
+                                            </div>
+                                            <div class="mb_40 col">
+                                                <h1 class="d-block uppercase fw-bold text-center f_s_20">
+                                                    
+                                                    {{ member.first_name }} {{ member.last_name }}
+                                                </h1>
+                                            </div>
+                                        </div>
+                                        <div class="col-md my-2">
+                                            <div class="row my-2">
+                                                <div class="col">
+                                                    <h2 class="fw-bold mb-2 d-flex gap-2 align-items-center"><i class="ti-align-left"></i>Details</h2>
+                                                </div>
+                                            </div>
+                                            <div class="col mb-2">
+                                                <p class="mb-2">First Name: <span class="fw-bold uppercase">{{member.first_name}}</span></p>                                             
+                                                <p class="mb-2">Last Name: <span class="fw-bold uppercase">{{member.last_name}}</span></p>                                             
+                                                <p class="mb-2">Employment Status: <span class="fw-bold">{%if member.is_employed%}Employed{% else %}Unemployed{% endif %}</span></p>                                                
+                                                <p class="mb-2">Birth Date: <span class="fw-bold">{{ member.birth_date }}</span></p>
+                                                <p>SEX: <span class="fw-bold">{{ member.gender }}</span></p>
+                                            </div>
+                                            <div class="col d-flex justify-between">
+                                                <a href="{% url 'family-member-edit' member.id %}" class="btn btn-outline-primary btn-block">Edit</a>
+                                                <a href="" class="btn btn-outline-danger btn-block" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Delete</a>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    {% else %}
+                    <p class="text-white">No data present....... </p>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Gusiba Umunyamuryango</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                Murashaka gusiba uyu munyamuryango koko? Iki gikorwa nticyasubizwa inyuma.
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Oya</button>
+                <a class="btn btn-danger" href="{% url 'family-member-delete' member.id %}">Yego</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

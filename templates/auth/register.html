@@ -1,0 +1,41 @@
+{% extends "landing_page/base.html" %}
+{% load static %}
+{% block title %}SIGN IN{% endblock title %}
+{% load crispy_forms_tags %}
+{% block main %}
+    {% include 'landing_page/includes/messages.html' %}
+    <link rel="stylesheet" href="https://bootswatch.com/5/materia/bootstrap.min.css">
+    <div class="login-page">
+        <main>
+            <div class="login-block">
+                <h1 class="text-center">Create account</h1>
+                <form action="#" method="post">
+                    {% csrf_token %}
+                    {{ members_form|crispy }}
+                    <div class="form-text mt-4">
+                        <input type="checkbox" onclick="myFunction()"> Show Password
+                    </div>
+
+
+                    <button type="submit">Create account</button>
+
+                </form>
+                <div class="login-links">
+                    <p class="text-center">Already have an account? <a class="txt-brand"
+                                                                       href="{% url 'user_login' %}">Login</a></p>
+                </div>
+            </div>
+        </main>
+
+        <script>
+            function myFunction() {
+                const x = document.getElementById("password");
+                if (x.type === "password") {
+                    x.type = "text";
+                } else {
+                    x.type = "password";
+                }
+            }
+        </script>
+    </div>
+{% endblock %}

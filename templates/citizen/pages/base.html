@@ -1,0 +1,317 @@
+{% load static %}
+{#{% load custom_filters %}#}
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Smart MUDUGUDU | {% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'members/css/bootstrap1.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'members/vendors/themefy_icon/themify-icons.css' %}"/>
+    <link rel="stylesheet" href="{% static 'members/vendors/font_awesome/css/all.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'members/vendors/tagsinput/tagsinput.css' %}"/>
+    <link rel="stylesheet" href="{% static 'members/css/metisMenu.css' %}">
+    <link rel="stylesheet" href="{% static 'members/css/style1.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}"/>
+    <link rel="stylesheet" href="{% static 'members/css/colors/default.css' %}" id="colorSkinCSS">
+    <link rel="stylesheet" href="{% static 'members/vendors/boxicons/css/boxicons.min.css' %}">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+<body class="crm_body_bg">
+<div class="white_card_body fixed-top" id="notification_card" style="display: none;">
+    <div class="card-body">
+        <div class="card-body">
+            <div id="notification"
+                 class="alert alert-dismissible fade show text-white bg-primary d-flex align-items-center justify-content-between"
+                 role="alert">
+                <div class="alert-text" id="notification-message"></div>
+                <button type="button" class="btn-close  text-white" data-bs-dismiss="alert"
+                        aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<nav class="sidebar vertical-scroll ps-container ps-theme-default ps-active-y">
+    <div class="logo d-flex justify-content-center">
+        <a href=""><img src="{% static 'images/logo.png' %}"></a>
+        <div class="sidebar_close_icon d-lg-none">
+            <i class="ti-close"></i>
+        </div>
+    </div>
+    <div class="flex justify-content-around gap-2">
+        <p>{{request.user.isibo}}</p>
+        <a href="{% url 'kwimuka' %}">Kwimuka</a>
+    </div>
+
+    <ul id="sidebar_menu">
+        <li class>
+            <a href="{% url 'dashboard' %}" aria-expanded="false">
+                <div class="">
+                    <img src="{% static 'members/img/menu-icon/dashboard.svg' %}" alt>
+                </div>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li class>
+            <a href="{% url 'messages-all' %}" aria-expanded="false">
+                <div class="">
+                    <img src="{% static 'members/img/menu-icon/6.svg' %}" alt>
+                </div>
+                <span>Vugisha Umuyobozi</span>
+            </a>
+        </li>
+        <li class>
+            <a class href="{% url 'citizen-family' %}" aria-expanded="false">
+                <div class="">
+                    <img src="{% static 'members/img/menu-icon/9.svg' %}" alt>
+                </div>
+                <span>Umuryango</span>
+            </a>
+        </li>
+        <!-- <li class>
+            <a class href="" aria-expanded="false">
+                <div class="">
+                    <img src="{% static 'members/img/menu-icon/9.svg' %}" alt>
+                </div>
+                <span>Ubuzima</span>
+            </a>
+        </li> -->
+        <li class>
+            <a class href="{% url 'citizen-events' %}" aria-expanded="false">
+                <div class="">
+                    <img src="{% static 'members/img/menu-icon/9.svg' %}" alt>
+                </div>
+                <span>Ibiteganyijwe</span>
+            </a>
+        </li>
+        <li class>
+            <a class href="{% url 'stories-all' %}" aria-expanded="false">
+                <div class="">
+                    <img src="{% static 'members/img/menu-icon/9.svg' %}" alt>
+                </div>
+                <span>Inkuru z'amateka</span>
+            </a>
+        </li>
+        <li class>
+            <a class href="{% url 'voting-all' %}" aria-expanded="false">
+                <div class="">
+                    <img src="{% static 'members/img/menu-icon/9.svg' %}" alt>
+                </div>
+                <span>Amatora</span>
+            </a>
+        </li>
+        <li class>
+            <a class href="{% url 'iporofile' %}" aria-expanded="false">
+                <div class="">
+                    <img src="{% static 'members/img/menu-icon/9.svg' %}" alt>
+                </div>
+                <span>Iporofile Yawe</span>
+            </a>
+        </li>
+        <li class>
+            <a class href="{% url 'logout' %}?next=/" aria-expanded="false">
+                <div class="text-danger">
+                    <img src="{% static 'members/img/menu-icon/14.svg' %}" alt>
+                </div>
+                <span class="text-danger">Gusohoka</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<section class="main_content dashboard_part large_header_bg">
+    <div class="container-fluid g-0">
+        <div class="row">
+            <div class="col-lg-12 p-0">
+                <div class="header_iner d-flex justify-content-between align-items-center">
+                    <div class="sidebar_icon d-lg-none ml-4">
+                        <i class="ti-menu"></i>
+                    </div>
+                    <div class="serach_field-area d-flex align-items-center">
+                        
+                        
+                    </div>
+                    <div class="header_right d-flex justify-content-between align-items-center">
+                        <div class="header_notification_warp d-flex align-items-center">
+                            <li>
+                                <a class="bell_notification_clicker nav-link-notify" href="#"> <img
+                                        src="{% static 'members' %}/img/icon/msg.svg" alt>
+                                </a>
+
+                                <div class="Menu_NOtification_Wrap">
+                                    <div class="notification_Header">
+                                        <h4>Messages</h4>
+                                    </div>
+                                    <div class="Notification_body">
+                                        <ul id="Notification_body">
+                                            {% for activity in messages_all%}
+                                                <li class="list-group-item d-flex align-items-center px-0 my-2 cursor-pointer border-0 {% if forloop.counter > 5 %}d-none{% endif %}">
+                                                    <div class="avatar me-3">
+                                                        <img src="{{ request.user.picture.url }}" alt="kal"
+                                                             class="border-radius-lg" width="30">
+                                                    </div>
+                                                    <div class="d-flex align-items-start flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm" title="{{ activity.topic}}">{{ activity.topic|truncatechars:30 }}</h6>
+                                                        <p class="mb-0 text-xs" title="{{ activity.message }}">{{ activity.message|truncatechars:30 }}</p>
+                                                    </div>
+                                                    <!-- <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto w-25 w-md-auto" href="javascript:;">Reply</a> -->
+                                                    <p class="mb-0 text-xs pe-3 ps-0 mb-0 ms-auto w-25 w-md-auto">{{activity.created|date:'m d, y'}}</p>
+                                                </li>
+                                                <hr>
+                                            {% empty %}
+                                                <li>No activities found.</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div class="nofity_footer">
+                                        <div class="submit_button text-center pt_20">
+                                            <a href="{% url 'messages-all' %}" class="btn btn-outline-primary" id="show-more-button">See More</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </li>
+                        </div>
+                        <div class="profile_info">
+                            <img src="{{ request.user.picture.url }}" alt="#">
+                            <div class="profile_info_iner">
+                                <div class="profile_author_name">
+                                    <p>Welcome </p>
+                                    <h5>{{ request.user.username }}</h5>
+                                </div>
+                                <div class="profile_info_details">
+                                    <a href="">My Profile </a>
+                                    
+                                    <a href="{% url 'logout' %}?next=/">Log Out </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'citizen/includes/messages.html' %}
+    {% block content %}
+
+    {% endblock %}
+
+    <div class="footer_part">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer_iner text-center">
+                        <p>Designed by Crispin<span id="currentYear"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<div id="back-top" style="display: none;">
+    <a title="Go to Top" href="#">
+        <i class="ti-angle-up"></i>
+    </a>
+</div>
+
+<script>
+    var currentYear = new Date().getFullYear();
+    document.getElementById('currentYear').textContent = currentYear;
+</script>
+<script src="{% static 'members/js/jquery.min.js' %}"></script>
+<script src="{% static 'members/js/popper1.min.js' %}"></script>
+<script src="{% static 'boot/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'members/js/metisMenu.js' %}"></script>
+<script src="{% static 'members/vendors/count_up/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'members/vendors/chartlist/Chart.min.js' %}"></script>
+<script src="{% static 'members/vendors/progressbar/jquery.barfiller.js' %}"></script>
+<script src="{% static 'members/vendors/tagsinput/tagsinput.js' %}"></script>
+<script src="{% static 'members/vendors/vectormap-home/vectormap-2.0.2.min.js' %}"></script>
+<script src="{% static 'members/vendors/vectormap-home/vectormap-world-mill-en.js' %}"></script>
+<script src="{% static 'members/vendors/echart/echarts.min.js' %}"></script>
+<script src="{% static 'members/js/dashboard_init.js' %}"></script>
+<script src="{% static 'members/js/custom.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const notificationDiv = document.getElementById('Notification_body');
+        const showMoreButton = document.getElementById('show-more-button');
+        const list = document.getElementsByClassName('single_notify');
+
+        // Set the initial number of displayed notifications and total notifications
+        let displayedNotifications = 5; // Display 5 notifications initially
+        const totalNotifications = {{ log_activities.count }};
+
+        // Hide all notifications initially
+        for (let i = 5; i < list.length; i++) {
+            list[i].classList.add("d-none");
+        }
+
+        // Function to display more notifications
+        function showMoreNotifications() {
+            displayedNotifications += 5; // Increase the number of displayed notifications
+            if (displayedNotifications >= totalNotifications) {
+                // If all notifications are displayed, hide the "Show More" button
+                showMoreButton.style.display = 'none';
+            }
+
+            // Show the next 5 notifications
+            for (let i = displayedNotifications - 5; i < displayedNotifications; i++) {
+                if (list[i]) {
+                    list[i].classList.remove("d-none");
+                    notificationDiv.appendChild(list[i]);
+                }
+            }
+        }
+
+        // Attach a click event listener to the "Show More" button
+        showMoreButton.addEventListener('click', showMoreNotifications);
+    });
+
+
+    // Function to display Django messages in the notification bar
+    function displayNotification(message, level) {
+        const notification_card = document.getElementById('notification_card');
+        const notification = document.getElementById('notification');
+        const messageSpan = document.getElementById('notification-message');
+
+        // Set the message and style based on message level (success, info, error, warning)
+        if (level === 'success') {
+            notification.className = 'alert z-50 alert-success alert-dismissible fade show d-flex align-items-center justify-content-between';
+        } else if (level === 'info') {
+            notification.className = 'alert z-50 alert-info alert-dismissible fade show d-flex align-items-center justify-content-between';
+        } else if (level === 'error') {
+            notification.className = 'alert z-50 alert-danger alert-dismissible fade show d-flex align-items-center justify-content-between';
+        } else if (level === 'warning') {
+            notification.className = 'alert z-50 alert-warning alert-dismissible fade show d-flex align-items-center justify-content-between';
+        }
+
+        messageSpan.innerHTML = message;
+        notification_card.style.display = 'block';
+
+        // Hide the notification after 5 seconds
+        setTimeout(function () {
+            notification_card.style.display = 'none';
+        }, 5000);
+    }
+
+    // Check for Django messages and display them
+    {% if messages %}
+        {% for message in messages %}
+            displayNotification("{{ message }}", "{{ message.tags }}");
+        {% endfor %}
+    {% endif %}
+
+</script>
+</body>
+</html>

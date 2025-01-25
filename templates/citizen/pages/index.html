@@ -1,0 +1,122 @@
+{% extends './base.html' %}
+{% load static %}
+{% block content %}
+    {% include "../includes/messages.html" %}
+    <div class="container-fluid px-2 px-md-4">
+        <div class="page-header min-height-300 border-radius-xl mt-4 "
+             style="background-image: url('{% static 'images/landing_page/Street_9.jpg' %}'); background-position: top;">
+            <span class="mask  bg-gradient-faded-dark-vertical  opacity-7"></span>
+            <h5 class="text-white text-4xl mx-auto z-index-2 text-center">Welcome to Smart MUDUGUDU</h5>
+        </div>
+        <div class="card card-body mx-1 mx-md-2 mt-n5 p-5 mb-4">
+            
+            <div class="row">
+                <div class="row">
+                    <div class="col-12 col-xl-6 mb-3">
+                        <div class="card card-plain h-100">
+                            <div class="card-header pb-2 p-3">
+                                <div class="row">
+                                    <div class="col-md-8 d-flex align-items-center">
+                                        <h6 class="mb-0">Abagize umuryango</h6>
+                                    </div>
+                                    <div class="col-md-4 text-end">
+                                        <a href="{% url 'citizen-family' %}">
+                                            <i class="fas fa-eye text-secondary text-sm" data-bs-toggle="tooltip"
+                                               data-bs-placement="top" title="Add Member"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body p-3">
+
+                                <ul class="list-group">
+                                    {% for group in grouped_by_gender %}
+                                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">
+                                        {{group.gender}}:</strong> &nbsp; {{group.count}}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-xl-6 mb-3">
+                        <div class="card card-plain h-100">
+                            <div class="card-header pb-2 p-3">
+                                <h6 class="mb-0">Umutekano</h6>
+                            </div>
+                            <div class="card-body p-3">
+                                <ul class="list-group">
+
+                                    {% for activity in log_activities %}
+                                        <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2 pt-0">
+                                            <div class="avatar me-3">
+                                                <img src="" alt="kal"
+                                                     class="border-radius-lg shadow">
+                                            </div>
+                                            <div class="d-flex align-items-start flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ activity.action }}</h6>
+                                                <p class="mb-0 text-xs">{{ activity.timestamp }} ..</p>
+                                            </div>
+                                            {#                                        <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto w-25 w-md-auto"#}
+                                            {#                                           href="javascript:;">Reply</a>#}
+                                        </li>
+                                    {% empty %}
+                                        <li>No activities found.</li>
+                                    {% endfor %}
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-xl-6 mb-3">
+                        <div class="card card-plain h-100">
+                            <div class="card-header pb-2 p-3">
+                                <!-- <h6 class="mb-0">Ibikorwa biheruka</h6> -->
+                                <div class="row">
+                                    <div class="col-md-8 d-flex align-items-center">
+                                        <h6 class="mb-0">Ibikorwa biheruka</h6>
+                                    </div>
+                                    <div class="col-md-4 text-end">
+                                        <a href="{% url 'citizen-family' %}">
+                                            <i class="fas fa-eye text-secondary text-sm" data-bs-toggle="tooltip"
+                                               data-bs-placement="top" title="Add Member"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-body p-3">
+                                <ul class="list-group">
+
+                                    {% for activity in recent_events %}
+                                        <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2 pt-0">
+                                            <div class="avatar me-3">
+                                                <!-- <img src="" alt="kal"
+                                                     class="border-radius-lg shadow"> -->
+                                                <i class="ti-light-bulb f_s_20"></i>
+                                            </div>
+                                            <div class="d-flex align-items-start flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm"><a href="{% if activity.remaining_days == -1 %}#{% else %}{% url 'event-single' activity.id %}{% endif %}">{{ activity.title }}</a></h6>
+                                                <p class="mb-0 text-xs">
+                                                    {% if activity.remaining_days == 0 %} <span class="text-success fw-bold">Today</span> {% elif activity.remaining_days == -1 %}<span class="text-danger fw-bold">Expired</span> {% else %} {{activity.remaining_days}} days remaining{% endif %}
+                                                    
+                                                </p>
+                                            </div>
+                                            <p class=" ps-0 mb-0 ms-auto w-30 w-md-auto"
+                                                href="javascript:;">{{ activity.created|timesince }} ago</p>
+                                        </li>
+                                    {% empty %}
+                                        <li>No activities found.</li>
+                                    {% endfor %}
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

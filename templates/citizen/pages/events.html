@@ -1,0 +1,69 @@
+{% extends "./base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+    <div class="main_content_iner overly_inner ">
+        <div class="container-fluid p-0 ">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="page_title_box d-flex align-items-center justify-content-between">
+                        <div class="page_title_left">
+                            <h3 class="f_s_40 text_white">Ibikorwa Biteganyijwe</h3>
+                            <ol class="breadcrumb page_bradcam mb-0">
+                                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboad</a></li>
+                                <li class="breadcrumb-item active">Ibiteganyijwe</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                {% for member in available_events %}
+                        <div class="col-md-3">
+                            <div class="white_card position-relative mb_20 {% if member.remaining_days == -1 %}border-1{% endif %}" style="border-color: rgb(177, 39, 39);">
+                                <div class="card-body">
+
+                                    <a href="">
+                                        <div>
+                                            <h5>
+                                                <a href="#"
+                                            class="f_w_400 color_text_3 f_s_14 d-block uppercase fw-bold">{{ member.title }}</a>
+                                            </h5>
+                                        </div>
+                                        <div class="row my-2">
+                                            <div class="col">
+                                                <span
+                                                    class="badge_btn_3  mb-1">{{ member.start_date|date:'M d, y' }}
+                                                </span>
+                                                <!-- <a href="#"
+                                                    class="f_w_400 color_text_3 f_s_14 d-block uppercase">Period: {{ member.period}}</a> -->
+                                            </div>
+                                            <div class="col-auto">
+                                                <h4 class="text-dark mt-0">
+                                                    <small
+                                                            class="text-muted font-14">
+                                                            {% if member.remaining_days == 0 %} <span class="text-success fw-bold">Today</span> {% elif member.remaining_days == -1 %}<span class="text-danger fw-bold">Expired</span> {% else %} {{member.remaining_days}} days remaining{% endif %}
+                                                    </small></h4>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="d-grid">
+                                            <a href="{% url 'event-single' member.id %}"
+                                                class="btn btn-outline-primary {% if member.remaining_days == -1 %}disabled{% endif %}">Reba Ibindi</a>
+                                        </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    {% empty %}
+                    <p class="text-white">No data present....... </p>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

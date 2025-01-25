@@ -1,0 +1,100 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block title %} Login {% endblock title %}
+{% block content %}
+    <div class="nav-tab-wrapper tabs  section-padding">
+        <div class="container">
+            <div class=" grid grid-cols-12 gap-[30px]">
+                <div class="xl:col-span-5 lg:col-span-6 col-span-12 ">
+                    <div class="mini-title">Login Page</div>
+                    <h4 class="column-title ">
+                        Provide Your
+                        <span class="shape-bg">
+                            Credentials</span>
+                    </h4>
+                    <div>
+                        Welcome back! Log in to access your account.
+                    </div>
+                    <ul class=" list-item space-y-6 pt-8">
+                        <p class="font-bold text-black">Login Options:</p>
+                        <li class="ml-4">Username & Password</li>
+                        <li class="ml-4">Google Auth</li>
+                    </ul>
+                </div>
+                <div class="xl:col-span-7 lg:col-span-6 col-span-12 lg:flex gap-4 justify-center items-center">
+                    <div class="bg-white shadow-box7 p-8 rounded-md w-full">
+                        <form method="post">
+                            {% csrf_token %}
+                            <h4 class="text text-primary text-center">
+                                Fill the form
+                            </h4>
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {% if 'error' in message.tags %}
+                                        <div class="alert text-red-500 font-bold alert-dismissible fade show text-center"
+                                             role="alert">
+                                            {{ message }}
+                                        </div>
+                                    {% elif 'success' in message.tags %}
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            {{ message }}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+
+                            {% endif %}
+                            <div class=" grid grid-cols-1 gap-[30px] mt-6 ">
+                                <div>
+                                    <label class="form-label mb-3" for="typeEmailX">Username</label>
+                                    {{ form.username }}
+                                </div>
+                                <div>
+                                    <label class="form-label mb-3" for="Password">Password</label>
+                                    {{ form.password }}
+                                </div>
+                            </div>
+                            <div class="custom-control custom-control-alternative custom-checkbox my-4">
+                                {{ form.remember_me }}
+                                <label class="custom-control-label" for="customCheckLogin">
+                                    <span class="text-muted">Remember me</span>
+                                </label>
+                            </div>
+                            <div class="d-flex justify-content-center mt-4 pt-1">
+                                <p class="small pb-lg-2"><a class="text-primary" href="{% url 'reset_password' %}">Forgot
+                                    password?</a></p>
+                            </div>
+
+                            <button class="btn btn-primary mt-[30px] mx-auto flex" type="submit">
+                                Sign In
+                            </button>
+                            <div class="text-center mt-4">
+                                <p class="mb-0">
+                                    <em class="text-primary">Don't have an account? </em>
+                                    <a href="{% url 'register' %}" class="mini-title fw-bold">Sign Up</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class=" flex-none pb-4 px-5">
+                        <div class=" text-center text-black font-semibold mb-5">Or <br>Sign In With:</div>
+                        <ul class="flex space-x-4 justify-center ">
+                            <li>
+                                <a href="{% url 'social:begin' 'google-oauth2' %}" class="flex h-10 w-10">
+                                    <img src="{% static 'home/images/google.svg' %}" alt="">
+                                </a>
+                            </li>
+                            <!-- <li>
+                                <a href="{% url 'social:begin' 'instagram' %}" class="flex h-10 w-10">
+                                    <img src="{% static 'home/images/ins.svg' %}" alt="">
+                                </a>
+                            </li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

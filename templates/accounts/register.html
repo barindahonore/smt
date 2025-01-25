@@ -1,0 +1,113 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block title %} Register {% endblock title %}
+{% block content %}
+    <div class="nav-tab-wrapper tabs  section-padding">
+        <div class="container">
+            <div class=" grid grid-cols-12 gap-[30px]">
+                <div class="xl:col-span-5 lg:col-span-6 col-span-12 ">
+                    <div class="mini-title">Register Page</div>
+                    <h4 class="column-title ">
+                        He's Some Quick
+                        <span class="shape-bg">
+                            Tips</span>
+                    </h4>
+                    <div>
+                        <p>Welcome to our community! Create your account to get started</p>
+                    </div>
+                    <div class=" list-item space-y-6 pt-8">
+                        <p class="font-bold text-black">Choose a strong password to keep your account secure:</p>
+                        <p>Just mix upper and lower case, include numbers and special characters, make them at least 8
+                            characters long, avoid common phrases, use passphrases, don't reuse passwords, hash and salt
+                            passwords in settings, prompt regular updates, implement two-factor authentication, and
+                            provide password strength guidance. These steps bolster password security, mitigating
+                            unauthorized access and data breaches in Django applications.</p>
+                    </div>
+                </div>
+                <div class="xl:col-span-7 lg:col-span-6 col-span-12">
+                    <div class="bg-white shadow-box7 p-8 rounded-md">
+                        <form method="post">
+                            {% csrf_token %}
+                            <h4 class="text text-primary text-center">
+                                Fill the form
+                            </h4>
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {% if 'error' in message.tags %}
+                                        <div class="alert text-red-500 font-bold alert-dismissible fade show text-center"
+                                             role="alert">
+                                            {{ message }}
+                                        </div>
+                                    {% elif 'success' in message.tags %}
+                                        <div class="alert text-green-500 font-bold alert-dismissible fade show text-center" role="alert">
+                                            {{ message }}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+
+                            {% endif %}
+                            <div class=" md:grid-cols-2 grid grid-cols-1 gap-[30px] mt-6 ">
+                                <div>
+                                    <label class="form-label" for="first_name">First Name</label>
+                                    {{ form.first_name }}
+                                    <span class="text-red-500">{{ form.first_name.errors }}</span>
+                                </div>
+                                <div>
+                                    <label class="form-label" for="last_name">Last Name</label>
+                                    {{ form.last_name }}
+                                    <span class="text-red-500">{{ form.last_name.errors }}</span>
+                                </div>
+                                <div>
+                                    <label class="form-label" for="username">Choose a username</label>
+                                    {{ form.username }}
+                                    <span class="text-red-500">{{ form.username.errors }}</span>
+                                </div>
+                                <div>
+                                    <label class="form-label" for="email">Email</label>
+                                    {{ form.email }}
+                                    <span class="text-red-500">{{ form.email.errors }}</span>
+                                </div>
+                                <div>
+                                    <label class="form-label" for="password1">Choose a password</label>
+                                    {{ form.password1 }}
+                                    <span class="text-red-500">{{ form.password1.errors }}</span>
+                                </div>
+                                <div>
+                                    <label class="form-label" for="password2">Confirm your password</label>
+                                    {{ form.password2 }}
+                                    <span class="text-red-500">{{ form.password2.errors }}</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary mt-[30px] mx-auto flex" type="submit">
+                                Save And Continue
+                            </button>
+                            <div class=" flex-none pb-4 px-5 mt-4">
+                                <div class=" text-center text-black font-semibold mb-5">Or <br>Sign In With:</div>
+                                <ul class="flex space-x-4 justify-center ">
+                                    <li>
+                                        <a href="{% url 'social:begin' 'google-oauth2' %}" class="flex h-10 w-10">
+                                            <img src="{% static 'home/images/google.svg' %}" alt="">
+                                        </a>
+                                    </li>
+                                    <!-- <li>
+                                        <a href="{% url 'social:begin' 'instagram' %}" class="flex h-10 w-10">
+                                            <img src="{% static 'home/images/ins.svg' %}" alt="">
+                                        </a>
+                                    </li> -->
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="mb-0">
+                                    <em class="text-primary">Already have an account? </em>
+                                    <a href="{% url 'login' %}" class="mini-title fw-bold">Sign In</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

@@ -1,0 +1,129 @@
+{% extends "./base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+    <div class="main_content_iner overly_inner ">
+        <div class="container-fluid p-0 ">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page_title_box d-flex align-items-center justify-content-between">
+                        <div class="page_title_left">
+                            <h3 class="f_s_40 text_white">Gusaba Kwimuka</h3>
+                            <ol class="breadcrumb page_bradcam mb-0">
+                                <li class="breadcrumb-item"><a href="">Dashboad</a></li>
+                                <li class="breadcrumb-item active">Kwimuka</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5 d-flex">
+                
+                {% if form is None %}
+                    <div class="col-md-8">
+                        <div class="white_card position-relative mb_20 pt-3 pb-2">
+                            <div class="card-body">
+                                <div class="d-flex items-center justify-content-center mb-4">
+                                    <i class="ti-comments-smiley" style="font-size: 40px;"></i>
+                                </div>
+                                <h1 class="text-center f_s_20 mb-4">Mufite Ubusabe Buheruka Butaremezwa!</h1>
+                                {% if current_kwimuka_obj %}
+                                <div class="row d-flex justify-content-center text-center">
+                                    <div class="col">
+                                        {{current_kwimuka_obj.isibo}}
+                                    </div>
+                                    <div class="col">
+                                        {{current_kwimuka_obj.created | date:'M, d, y'}}
+                                    </div>
+                                    <div class="col">
+                                        Tegereza
+                                    </div>
+                                    <div class="col">
+                                        <a class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Hagarika</a>
+                                    </div>
+                                </div>
+
+
+                               
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-md-8">
+                        <div class="white_card position-relative mb_20 pt-3 pb-2">
+                            <div class="card-body">
+                                <h3 class="f_s_20 mb-3">Hitamo Isibo Mushaka Kwimukiramo</h3>
+
+                                <div class="row">
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <div class="col-md my-2">
+                                            <div class="col mb-4">
+                                                {{form | crispy}}
+                                            </div>
+                                            <div class="col d-flex">
+                                                <button type="submit" class="btn btn-outline-primary btn-block">Ohereza Ubusabe</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="col-md-4">
+                    <div class="white_card position-relative mb_20 pt-3 pb-2">
+                        <div class="card-body">
+                            <div class="row d-flex justify-content-center text-center">
+                                {% if kwimuka_objects %}
+                                <h3 class="f_s_20 mb-3">Ubusabe Bwanyu</h3>
+                                {% endif %}
+                                <table class="table">
+                                    {% for item in kwimuka_objects %}
+                                    <tr class="mb-4">
+                                        <td>
+                                            {{item.isibo}}
+                                        </td>
+                                        <td>
+                                            {{item.created | date:'M, d, y'}}
+                                        </td>
+                                        <td>
+                                            {% if item.approve %}Bwaremejwe{% elif item.cancelled%}Bwarahagaritswe{% else %}Tegereza{% endif %}
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                        <p>Nta busabe mufite, nimwohereza ubusabe buragaragara hano!</p>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    {% if current_kwimuka_obj %}
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Guhagarika Ubusabe bwo kwimuka</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                Murashaka guhagarika ubu busabe koko? Iki gikorwa nticyasubizwa inyuma.
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Oya</button>
+                <a class="btn btn-danger" href="{% url 'kwimuka-cancel' current_kwimuka_obj.id %}">Yego</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

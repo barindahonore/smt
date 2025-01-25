@@ -1,0 +1,44 @@
+{% autoescape off %}
+    <html>
+    <head>
+        <style>
+            .contents {
+                font-size: 20px;
+                padding: 10px 50px;
+            }
+
+            .logo {
+                margin: auto auto 10px;
+                width: 50%;
+            }
+
+            .logo img {
+                width: 100%;
+            }
+
+            .footer {
+                color: #0a3688;
+                margin: 10px auto;
+                font-size: 10px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+    `
+    <div class="logo">
+        <div>
+            <img src="cid:image1" alt="SSC Logo"/>
+        </div>
+        <div>{{ body|linebreaks }}</div>
+    </div>
+    <div class="contents">
+        Dear {{ user }},<br>
+        Please Click on the link below to activate your email.
+        <br>
+        http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+    </div>
+    <div class="footer">* Save Street Children *</div>
+    </body>
+    </html>
+{% endautoescape %}

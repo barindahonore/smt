@@ -1,0 +1,45 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block title %} Register {% endblock title %}
+{% block content %}
+
+    <div class="nav-tab-wrapper tabs  section-padding">
+        <div class="container">
+            <div class=" grid grid-cols-12 gap-[30px]">
+                <div class="xl:col-span-5 lg:col-span-6 col-span-12 ">
+                    <div class="mini-title">Account Activation Page</div>
+                    <h4 class="column-title ">
+                        Activation
+                        <span class="shape-bg">
+                            Link</span>
+                    </h4>
+                    <!-- <div>
+                        Welcome back! Let's know what is going on mail sent.
+                    </div> -->
+                </div>
+                <div class="xl:col-span-7 lg:col-span-6 col-span-12 lg:flex gap-4 justify-center items-center">
+                    <div class="bg-white shadow-box7 p-8 rounded-md w-full px-10">
+                        <h4 class="text text-primary text-center">
+                            Mail Sent!
+                        </h4>
+                        <div class=" grid grid-cols-1 gap-[30px] mt-6 ">
+                            <p class="text">
+                                We sent you an email. Check your inbox, click a link to activate your account.
+                            </p>
+                            <div class="text-secondary text-light mb-4 mt-4">
+                                <p class="text-primary"><em>Note: </em> An email may take some time to reach ...
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}
+
+
+

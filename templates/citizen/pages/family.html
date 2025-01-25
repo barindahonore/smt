@@ -1,0 +1,74 @@
+{% extends "./base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+    <div class="main_content_iner overly_inner ">
+        <div class="container-fluid p-0 ">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="page_title_box d-flex align-items-center justify-content-between">
+                        <div class="page_title_left">
+                            <h3 class="f_s_40 text_white">Umuryango Wawe</h3>
+                            <ol class="breadcrumb page_bradcam mb-0">
+                                <li class="breadcrumb-item"><a href="">Dashboad</a></li>
+                                <li class="breadcrumb-item active">Umuryango</li>
+                            </ol>
+                        </div>
+                            <a href="{% url 'family-member-add' %}" class="white_btn3">Kongeramo Umunyamuryango</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                {% for member in family_members.members.all %}
+                        <div class="col-md-3">
+                            <div class="white_card position-relative mb_20">
+                                <div class="card-body">
+
+                                    <a href="">
+                                        <img src="{{ member.profile_picture.url }}"
+                                                alt
+                                                class="img-fluid d-block mx-auto my-2 product_img object-top">
+                                                <div>
+                                                    <h5>
+                                                        <a href="#"
+                                                    class="f_w_400 color_text_3 f_s_14 d-block uppercase fw-bold">{{ member.first_name }} {{ member.last_name }}</a>
+                                                    </h5>
+                                                </div>
+                                        <div class="row my-2">
+                                            <div class="col">
+                                                <span
+                                                    class="badge_btn_3  mb-1">{{ member.gender }}
+                                                </span>
+                                                <a href="#"
+                                                    class="f_w_400 color_text_3 f_s_14 d-block uppercase">{{ member.birth_date}}</a>
+                                            </div>
+                                            <div class="col-auto">
+                                                <h4 class="text-dark mt-0">
+                                                    <small
+                                                            class="text-muted font-14">{% if member.is_employed %}Employed{% else %}Unemployed{% endif %}
+                                                    </small></h4>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="d-flex justify-between">
+                                            <a href="{% url 'family-single' member.id %}"
+                                                class="btn btn-outline-primary">View</a>
+                                            <a href="{% url 'family-single' member.id %}"
+                                                class="btn btn-outline-danger">Delete</a>
+                                        </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    {% empty %}
+                    <p class="text-white">No data present....... </p>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

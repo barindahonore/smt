@@ -1,0 +1,103 @@
+{% extends "./base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+    <div class="main_content_iner overly_inner ">
+        <div class="container-fluid p-0 ">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="page_title_box d-flex align-items-center justify-content-between">
+                        <div class="page_title_left">
+                            <h3 class="f_s_40 f_w_500 text_white">Ubutumwa Bwawe</h3>
+                            <ol class="breadcrumb page_bradcam mb-0">
+                                <li class="breadcrumb-item"><a href="">Dashboad</a></li>
+                                <li class="breadcrumb-item">Vugisha Umuyobozi</li>
+                                <li class="breadcrumb-item active">Ubutumwa</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <a href="{% url 'message-new' %}" class="white_btn3">Kohereza Ubutumwa</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-12 m-auto">
+                    <div class="white_card position-relative mb_20 pt-3 pb-2 overflow-auto">
+                        <div class="card-body">
+                            {% if messages_all %}
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col" width="15%">Impamvu</th>
+                                        <th scope="col" width="30%">Ubutumwa</th>
+                                        <th scope="col" width="25%">Igisubizo</th>
+                                        <th scope="col">Itariki</th>
+                                        <th scope="col">Igikorwa</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in messages_all %}
+                                            <tr>
+                                                <th scope="row">{{forloop.counter}}</th>
+                                                <td title="{{item.topic}}">{{item.topic|truncatechars:15}}</td>
+                                                <td title="{{item.message}}">{{item.message|truncatechars:50}}</td>
+                                                <td title="{{item.reply}}">{% if item.reply is None %}Nta gisibuzo . . . {% else %}{{item.reply|truncatechars:50}}{% endif %}</td>
+                                                <td>{{item.created}}</td>
+                                                <td><a href="" data-bs-toggle="modal" data-bs-target="#message-{{item.id}}">Reba</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                    
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <p class="text-center">Nta butumwa ufite . . .</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+  
+
+  <!-- Message Modal -->
+  {% for item in messages_all %}
+  <div class="modal fade" id="message-{{item.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Ubutumwa</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h3 class="fw-bold mb-3">IMPAMVU: {{item.topic}}</h3>
+          <div class="mb-3">
+            <p>
+                <span class="fw-bold mb-1">UBUTUMWA</span> <br> {{item.message}} <br>
+                <span class="italic fw-bold">{{item.created}}</span>
+            </p>
+          </div>
+          <div>
+            {% if item.reply %}
+            <p>
+                <span class="fw-bold mb-1">IGISUBIZO</span> <br> {{item.reply}} <br>
+                <span class="italic fw-bold">{{item.updated}}</span>
+            </p>
+            {% else %}
+            <p>
+                <span class="fw-bold">Nta gisubizo kirajyaho . . . </span>
+            </p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+{% endblock %}
